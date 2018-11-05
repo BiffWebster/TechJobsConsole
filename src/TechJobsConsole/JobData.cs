@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Linq;
+
 
 namespace TechJobsConsole
 {
     class JobData
     {
+        
         static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();
         static bool IsDataLoaded = false;
 
@@ -71,7 +75,7 @@ namespace TechJobsConsole
 
             List<string[]> rows = new List<string[]>();
 
-            using (StreamReader reader = File.OpenText("job_data.csv"))
+            using (StreamReader reader = File.OpenText("C:/Users/biffw/Source/Repos/TechJobsConsole/src/TechJobsConsole/job_data.csv"))
             {
                 while (reader.Peek() >= 0)
                 {
@@ -138,5 +142,44 @@ namespace TechJobsConsole
 
             return rowValues.ToArray();
         }
+
+          public static List<Dictionary<string, string>> FindByValue(string value)
+          {
+              LoadData();
+            
+              List<Dictionary<string,string>>jobs= new List<Dictionary<string, string>>();
+              
+              foreach(Dictionary <string, string> row in AllJobs)
+              {
+                //Dictionary<string, string> job = new Dictionary<string, string>(row, StringComparer.OrdinalIgnoreCase);
+                foreach(KeyValuePair<string, string> kvp in row)
+                {
+                    //string aValue = kvp.Value.Contains(value);
+                    //if (!job.ContainsValue(aValue))
+                    //{
+                    //    job.Add(kvp.Key, kvp.Value);
+                    //}
+                    if(kvp.Value.ToLower().Contains(value.ToLower()))
+                    {
+                        jobs.Add(row);
+                        break;
+                    }
+                    
+                }
+                
+               
+                  //else
+                  //  {
+                  //      Console.WriteLine(Wrong());
+                  //  }
+                  
+              }
+
+            return jobs;
+
+        }
+        
+            
+
     }
 }

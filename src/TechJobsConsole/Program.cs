@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TechJobsConsole
 {
@@ -63,12 +64,33 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        for (int i = 0; i < columnChoices.Count - 1; i++)
+                        {
+                            columnChoice.Equals(columnChoices.ElementAt(i));
+                            searchResults = JobData.FindByValue(searchTerm);
+                            if (searchResults.Count != 0)
+                            {
+                                PrintJobs(searchResults);
+                            }
+
+                            else if (searchResults.Count == 0)
+                            {
+                                Console.WriteLine("No.");
+                            }
+
+                        }
                     }
                     else
                     {
                         searchResults = JobData.FindByColumnAndValue(columnChoice, searchTerm);
-                        PrintJobs(searchResults);
+                        if (searchResults.Count != 0)
+                        {
+                            PrintJobs(searchResults);
+                        }
+                        else
+                        {
+                            Console.WriteLine("no");
+                        }
                     }
                 }
             }
@@ -118,7 +140,33 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+
+
+
+
+            foreach (Dictionary<string, string> jobs in someJobs)
+            {
+
+
+
+                Console.WriteLine("******");
+
+                foreach (KeyValuePair<string, string> kvp in jobs)
+                {
+
+
+                    Console.WriteLine("{0}: {1}", kvp.Key, kvp.Value);
+
+
+
+                }
+                Console.WriteLine("******\n");
+
+
+
+
+            }
+            //Console.WriteLine("printJobs is not implemented yet");
         }
     }
 }
