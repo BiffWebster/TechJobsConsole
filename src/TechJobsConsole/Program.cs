@@ -124,7 +124,7 @@ namespace TechJobsConsole
                 string input = Console.ReadLine();
                 choiceIdx = int.Parse(input);
 
-                if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length)
+                if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length )
                 {
                     Console.WriteLine("Invalid choices. Try again.");
                 }
